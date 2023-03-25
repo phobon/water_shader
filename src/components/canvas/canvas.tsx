@@ -7,7 +7,7 @@ import { ScreenSizeCamera } from '../screen_size_camera'
 
 export const Canvas = ({
   debug = true,
-  frameloop = 'always',
+  frameloop = 'demand',
   children,
   ...props
 }: any) => {
@@ -17,15 +17,13 @@ export const Canvas = ({
   })
 
   return (
-    <ThreeCanvas frameloop={frameloop} {...props}>
+    <ThreeCanvas {...props} frameloop={frameloop}>
       <Preload all />
 
       <Suspense fallback={null}>{children}</Suspense>
 
       {controls ? <OrbitControls /> : null}
       {showDebug ? <Debug /> : null}
-
-      <ScreenSizeCamera makeDefault />
     </ThreeCanvas>
   )
 }
