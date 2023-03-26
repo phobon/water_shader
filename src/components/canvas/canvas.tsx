@@ -7,7 +7,7 @@ import { ScreenSizeCamera } from '../screen_size_camera'
 
 export const Canvas = ({
   debug = true,
-  frameloop = 'demand',
+  frameloop = 'always',
   children,
   ...props
 }: any) => {
