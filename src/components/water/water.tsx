@@ -10,6 +10,8 @@ import {
   useRef,
   useState,
 } from 'react'
+// @ts-ignore
+import noiseUrl from './noise.png'
 
 const waves = {
   A: { direction: 0, steepness: 0.01, wavelength: 30 },
@@ -77,15 +79,17 @@ export const Water = forwardRef<any, any>(
     }, [camera])
 
     useEffect(() => {
-      meshRef.current.material.uniforms.u_resolution.value.x = size.width
-      meshRef.current.material.uniforms.u_resolution.value.y = size.height
+      meshRef.current.material.uniforms.u_resolution.value.x =
+        size.width * window.devicePixelRatio
+      meshRef.current.material.uniforms.u_resolution.value.y =
+        size.height * window.devicePixelRatio
     }, [size])
 
     const renderTarget = useFBO({ depth: true })
 
     const displacementTexture = useTexture(
-      'https://i.imgur.com/hOIsXiZ.png',
-      // whitePixelUrl,
+      noiseUrl,
+      // 'https://i.imgur.com/hOIsXiZ.png',
       (t) => {
         // @ts-ignore
         t.wrapS = t.wrapT = THREE.RepeatWrapping

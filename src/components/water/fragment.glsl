@@ -38,10 +38,7 @@ void main() {
   vec2 displacement = texture2D(u_displacementTexture, (v_uv * 2.0) - u_time * 0.05).rg;
   displacement = (displacement * 2.0) - 1.0;
   diff += displacement.y;
-  // vec3 foamColor = mix(u_foamColor, u_waterColor, step(u_threshold, diff));
   vec3 finalColor = mix(u_foamColor, underwaterColor, smoothstep(u_threshold - .02, u_threshold + .02, diff));
-
-  // vec3 finalColor = underwaterColor + foamColor;
 
   gl_FragColor.rgb = finalColor;
   gl_FragColor.a = 1.0;

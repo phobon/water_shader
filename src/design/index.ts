@@ -276,7 +276,7 @@ const globalStyles = globalCss({
   figure: {
     margin: 0,
   },
-  '.fibrous__portal__root': {
+  '.watershader__portal__root': {
     left: 0,
     top: 0,
     right: 0,

@@ -14,7 +14,7 @@ const handleMediaMatched = (previousTheme: UserTheme, newTheme: ThemeType) => {
 }
 
 export const useDetectTheme = (): ThemeContextType => {
-  const [theme, setTheme] = usePersistedState<UserTheme>('fibrous__theme', {
+  const [theme, setTheme] = usePersistedState<UserTheme>('watershader__theme', {
     currentTheme: 'dark',
     overrideSystemOnMediaQueryChange: false,
   })
