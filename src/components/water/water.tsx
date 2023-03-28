@@ -30,8 +30,8 @@ const WaterMaterial = shaderMaterial(
     u_time: 0,
     u_amplitude: 0.05,
     u_threshold: 0.1,
-    u_waterColor: new THREE.Color(0x146aff),
-    u_underWaterColor: new THREE.Color(0x1f4d9c),
+    u_shallowWaterColor: new THREE.Color(0x146aff),
+    u_deepWaterColor: new THREE.Color(0x1f4d9c),
     u_foamColor: new THREE.Color(0xffffff),
     u_waveA: new THREE.Vector4(
       Math.sin((waves.A.direction * Math.PI) / 180),

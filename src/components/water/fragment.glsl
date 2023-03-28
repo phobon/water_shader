@@ -12,8 +12,8 @@ uniform float u_time;
 uniform float u_threshold;
 uniform vec2 u_resolution;
 
-uniform vec3 u_underWaterColor;
-uniform vec3 u_waterColor;
+uniform vec3 u_deepWaterColor;
+uniform vec3 u_shallowWaterColor;
 uniform vec3 u_foamColor;
 
 float getDepth( const in vec2 screenPosition ) {
@@ -33,7 +33,7 @@ void main() {
   float diff = saturate(fragmentLinearEyeDepth - linearEyeDepth);
 
   float underwaterThreshold = smoothstep(u_threshold, 0.8, diff);
-  vec3 underwaterColor = mix(u_underWaterColor, u_waterColor, underwaterThreshold);
+  vec3 underwaterColor = mix(u_deepWaterColor, u_shallowWaterColor, underwaterThreshold);
 
   vec2 displacement = texture2D(u_displacementTexture, (v_uv * 2.0) - u_time * 0.05).rg;
   displacement = (displacement * 2.0) - 1.0;

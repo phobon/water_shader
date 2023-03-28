@@ -10,8 +10,8 @@ export const WaterScene = () => {
         manual
         position={[0, 10, 0]}
         zoom={75}
-        near={0.1}
-        far={17}
+        near={3}
+        far={25}
       />
 
       <directionalLight position={[0, 10, 10]} intensity={1.0} />
@@ -27,7 +27,7 @@ export const WaterScene = () => {
       <Box position={[-1, 0, -1]} height={1.5} />
       <Box position={[1, 0, -1]} height={3} />
 
-      <WaterBottom position={[0, -2, 0]} />
+      {/* <WaterBottom position={[0, -2, 0]} /> */}
     </>
   )
 }
