@@ -11,6 +11,11 @@ uniform vec4 u_waveD;
 varying vec3 v_position;
 varying vec2 v_uv;
 
+varying float v_depth;
+
+varying vec3 v_worldPosition;
+varying vec3 v_scenePosition;
+
 vec3 gerstnerWave (vec4 wave, vec3 p, float time) {
   float steepness = wave.z;
   float wavelength = wave.w;
@@ -31,14 +36,21 @@ void main() {
   v_position = position;
   v_uv = uv;
 
-  vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+  vec4 worldPosition = modelViewMatrix * vec4(position, 1.0);
 
-  vec3 p = mvPosition.xyz;
-  p += gerstnerWave(u_waveA, mvPosition.xyz, u_time);
-  p += gerstnerWave(u_waveB, mvPosition.xyz, u_time);
-  p += gerstnerWave(u_waveC, mvPosition.xyz, u_time);
-  p += gerstnerWave(u_waveD, mvPosition.xyz, u_time);
-  mvPosition.xyz = p;
+  vec3 p = worldPosition.xyz;
+  p += gerstnerWave(u_waveA, worldPosition.xyz, u_time);
+  p += gerstnerWave(u_waveB, worldPosition.xyz, u_time);
+  p += gerstnerWave(u_waveC, worldPosition.xyz, u_time);
+  p += gerstnerWave(u_waveD, worldPosition.xyz, u_time);
+  worldPosition.xyz = p;
 
-  gl_Position = projectionMatrix * mvPosition;
+  vec4 scenePosition = projectionMatrix * worldPosition;
+
+
+  gl_Position = scenePosition;
+
+  v_depth = -worldPosition.z;
+  v_worldPosition = worldPosition.xyz;
+  v_scenePosition = scenePosition.xyz;
 }

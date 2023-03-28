@@ -12,6 +12,10 @@ import {
 } from 'react'
 // @ts-ignore
 import noiseUrl from './noise.png'
+// @ts-ignore
+import voronoi1 from './voronoi1.png'
+// @ts-ignore
+import voronoi2 from './voronoi2.png'
 import { useControls } from 'leva'
 
 const waves = {
@@ -26,15 +30,17 @@ const WaterMaterial = shaderMaterial(
     u_sceneTexture: null,
     u_depthTexture: null,
     u_displacementTexture: null,
+    u_surfaceFoamTexture: null,
     u_resolution: new THREE.Vector2(0),
     u_cameraNear: 0,
     u_cameraFar: 0,
-    u_cameraPosition: new THREE.Vector3(0),
+    u_cameraPosition: new THREE.Vector3(0, 15, 0),
     u_time: 0,
-    u_amplitude: 0.05,
+    u_amplitude: 0.001,
     u_threshold: 0.1,
-    u_shallowWaterColor: new THREE.Color(0xe8e8e8),
-    u_deepWaterColor: new THREE.Color(0x0041b1),
+    u_farPlaneDepth: 0,
+    u_shallowWaterColor: new THREE.Color(0x4d9be3),
+    u_deepWaterColor: new THREE.Color(0x4d9be3),
     u_horizonPosition: new THREE.Vector3(3, 3, 3),
     u_horizonColor: new THREE.Color('orange'),
     u_foamColor: new THREE.Color(0xffffff),
@@ -70,7 +76,7 @@ const WaterMaterial = shaderMaterial(
 extend({ WaterMaterial })
 
 export const StylisedWater = forwardRef<any, any>(
-  ({ children, args, ...props }, ref) => {
+  ({ children, args, bottomDepth = 0, ...props }, ref) => {
     const meshRef = useRef<any>()
 
     useImperativeHandle(ref, () => meshRef.current)
@@ -98,10 +104,10 @@ export const StylisedWater = forwardRef<any, any>(
         step: 0.1,
       },
       shallowWaterColor: {
-        value: '#e8e8e8',
+        value: '#4D9BE3',
       },
       deepWaterColor: {
-        value: '#0041b1',
+        value: '#4D9BE3',
       },
       horizonColor: {
         value: 'orange',
@@ -109,8 +115,8 @@ export const StylisedWater = forwardRef<any, any>(
     })
 
     useEffect(() => {
-      meshRef.current.material.uniforms.u_cameraPosition.value =
-        defaultCamera.position
+      // meshRef.current.material.uniforms.u_cameraPosition.value =
+      //   defaultCamera.position
     }, [defaultCamera])
 
     useEffect(() => {
@@ -123,28 +129,38 @@ export const StylisedWater = forwardRef<any, any>(
     const renderTarget = useFBO({ depth: true })
     const renderTargetScene = useFBO()
 
-    const displacementTexture = useTexture(
-      noiseUrl,
-      // 'https://i.imgur.com/hOIsXiZ.png',
-      (t) => {
+    const [displacementTexture, voronoi1Texture, voronoi2Texture] = useTexture(
+      [noiseUrl, voronoi1, voronoi2],
+      ([t1, t2, t3]: any) => {
         // @ts-ignore
-        t.wrapS = t.wrapT = THREE.RepeatWrapping
+        t1.wrapS = t1.wrapT = THREE.RepeatWrapping
+        t2.wrapS = t2.wrapT = THREE.RepeatWrapping
+        t3.wrapS = t3.wrapT = THREE.RepeatWrapping
       }
     )
 
     useFrame((state) => {
       const { gl, scene, camera, clock } = state
 
+      meshRef.current.material.uniforms.u_farPlaneDepth.value = bottomDepth
+
+      meshRef.current.material.uniforms.u_cameraPosition.value = camera.position
       meshRef.current.material.uniforms.u_cameraNear.value = cameraNear
       meshRef.current.material.uniforms.u_cameraFar.value = cameraFar
 
-      meshRef.current.material.uniforms.u_shallowWaterColor.value =
-        new THREE.Color(shallowWaterColor)
-      meshRef.current.material.uniforms.u_deepWaterColor.value =
-        new THREE.Color(deepWaterColor)
-      meshRef.current.material.uniforms.u_horizonColor.value = new THREE.Color(
-        horizonColor
+      meshRef.current.material.uniforms.u_shallowWaterColor.value.set(
+        shallowWaterColor
       )
+      meshRef.current.material.uniforms.u_deepWaterColor.value.set(
+        deepWaterColor
+      )
+      meshRef.current.material.uniforms.u_horizonColor.value.set(horizonColor)
+
+      meshRef.current.material.uniforms.u_displacementTexture.value =
+        displacementTexture
+      meshRef.current.material.uniforms.u_surfaceFoamTexture.value =
+        voronoi1Texture
+      meshRef.current.material.uniforms.u_time.value = clock.elapsedTime
 
       gl.setRenderTarget(renderTarget)
       gl.render(scene, camera)
@@ -161,17 +177,13 @@ export const StylisedWater = forwardRef<any, any>(
         renderTargetScene.texture
 
       gl.setRenderTarget(null)
-
-      meshRef.current.material.uniforms.u_displacementTexture.value =
-        displacementTexture
-      meshRef.current.material.uniforms.u_time.value = clock.elapsedTime
     })
 
     return (
       <mesh ref={meshRef} {...props}>
         <planeGeometry args={args} />
         {/* @ts-ignore */}
-        <waterMaterial side={THREE.DoubleSide} />
+        <waterMaterial side={THREE.DoubleSide} transparent />
       </mesh>
     )
   }

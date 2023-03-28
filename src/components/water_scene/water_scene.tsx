@@ -10,22 +10,23 @@ export const WaterScene = () => {
         manual
         position={[0, 10, 0]}
         zoom={75}
-        near={3}
-        far={25}
+        near={0}
+        far={20}
       />
 
-      <directionalLight position={[0, 10, 10]} intensity={1.0} />
-      <ambientLight intensity={0.3} />
+      <directionalLight position={[0, 5, 15]} intensity={0.8} />
+      <ambientLight intensity={0.2} />
 
       <StylisedWater
         rotation={[-Math.PI / 2, 0, 0]}
-        args={[10, 10, 100, 100]}
+        args={[12, 12, 100, 100]}
+        bottomDepth={-2}
       />
 
-      <Box position={[1, 0, 1]} />
-      <Box position={[-1, 0, 1]} height={2} />
-      <Box position={[-1, 0, -1]} height={1.5} />
-      <Box position={[1, 0, -1]} height={3} />
+      <Sphere position={[1, 0, 1]} />
+      <Sphere position={[-1, 0, 1]} height={2} />
+      <Sphere position={[-1, 0, -1]} height={1.5} />
+      <Sphere position={[1, 0, -1]} height={2} />
 
       {/* <WaterBottom position={[0, -2, 0]} /> */}
     </>
@@ -41,11 +42,20 @@ const Box = ({ width = 1, height = 1, depth = 1, ...props }: any) => {
   )
 }
 
+const Sphere = ({ height = 1, ...props }: any) => {
+  return (
+    <mesh {...props}>
+      <sphereGeometry args={[height / 2, 32, 32]} />
+      <meshLambertMaterial color="#adadad" />
+    </mesh>
+  )
+}
+
 const WaterBottom = (props: any) => {
   return (
     <mesh {...props} rotation={[-Math.PI / 2, 0, 0]}>
-      <planeGeometry args={[10, 10]} />
-      <meshStandardMaterial color="brown" />
+      <planeGeometry args={[20, 20]} />
+      <meshStandardMaterial color="black" />
     </mesh>
   )
 }

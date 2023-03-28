@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@radix-ui/colors": "^0.1.8",
-    "@react-three/drei": "^9.58.4",
+    "@react-three/drei": "^9.58.5",
     "@react-three/fiber": "^8.12.0",
     "@react-three/postprocessing": "^2.7.1",
     "@stitches/react": "^1.2.8",
@@ -23,9 +23,9 @@
     "three": "^0.150.1"
   },
   "devDependencies": {
-    "@types/react": "^18.0.29",
+    "@types/react": "^18.0.30",
     "@types/react-dom": "^18.0.11",
-    "@types/three": "^0.149.0",
+    "@types/three": "^0.150.0",
     "@vitejs/plugin-react": "^3.1.0",
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^8.8.0",
