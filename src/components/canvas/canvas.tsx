@@ -4,6 +4,7 @@ import { useControls } from 'leva'
 import { Suspense } from 'react'
 import { Debug } from '../debug'
 import { ScreenSizeCamera } from '../screen_size_camera'
+import * as THREE from 'three'
 
 export const Canvas = ({
   debug = true,
@@ -17,7 +18,17 @@ export const Canvas = ({
   })
 
   return (
-    <ThreeCanvas {...props} frameloop={frameloop}>
+    <ThreeCanvas
+      {...props}
+      frameloop={frameloop}
+      onCreated={({ gl }) => {
+        // gl.toneMapping = THREE.ACESFilmicToneMapping
+        // gl.outputEncoding = THREE.sRGBEncoding
+      }}
+      // linear
+      // legacy
+      // flat
+    >
       <Preload all />
 
       <Suspense fallback={null}>{children}</Suspense>

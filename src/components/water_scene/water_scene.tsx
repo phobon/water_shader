@@ -1,6 +1,7 @@
-import { OrthographicCamera } from '@react-three/drei'
+import { OrthographicCamera, PerspectiveCamera } from '@react-three/drei'
 import { Water } from '../water'
 import { StylisedWater } from '../stylised_water'
+import { SimpleWater } from '../simple_water'
 
 export const WaterScene = () => {
   return (
@@ -17,11 +18,12 @@ export const WaterScene = () => {
       <directionalLight position={[0, 5, 15]} intensity={0.8} />
       <ambientLight intensity={0.2} />
 
-      <StylisedWater
+      {/* <StylisedWater
         rotation={[-Math.PI / 2, 0, 0]}
         args={[12, 12, 100, 100]}
         bottomDepth={-2}
-      />
+      /> */}
+      <SimpleWater rotation={[-Math.PI / 2, 0, 0]} args={[12, 12, 100, 100]} />
 
       <Sphere position={[1, 0, 1]} />
       <Sphere position={[-1, 0, 1]} height={2} />
