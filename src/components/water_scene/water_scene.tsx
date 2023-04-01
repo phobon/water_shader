@@ -30,6 +30,38 @@ export const WaterScene = () => {
       <Sphere position={[-1, 0, -1]} height={1.5} />
       <Sphere position={[1, 0, -1]} height={2} />
 
+      <Box
+        position={[-6, -0.5, 0]}
+        depth={12}
+        rotation={[0, 0, Math.PI / 4]}
+        width={1}
+        height={3}
+      />
+      <Box
+        position={[6, -0.5, 0]}
+        depth={12}
+        rotation={[0, 0, -Math.PI / 4]}
+        width={1}
+        height={3}
+      />
+      <Box
+        position={[0, -0.5, 6]}
+        depth={12}
+        width={1}
+        height={3}
+        rotation={[0, -Math.PI / 2, -Math.PI / 4]}
+      />
+      <Box
+        position={[0, -0.5, -6]}
+        depth={12}
+        width={1}
+        height={3}
+        rotation={[0, -Math.PI / 2, Math.PI / 4]}
+      />
+      {/* <Box />
+      <Box />
+      <Box /> */}
+
       {/* <WaterBottom position={[0, -2, 0]} /> */}
     </>
   )

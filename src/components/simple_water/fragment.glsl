@@ -29,6 +29,9 @@ uniform float u_foamCutoff;
 
 varying vec2 v_uv;
 
+varying vec4 v_shallowColor;
+varying vec4 v_deepColor;
+
 vec4 permute(vec4 x) {
   return mod(((x*34.0)+1.0)*x, 289.0);
 }
@@ -163,7 +166,7 @@ vec2 refractedUv(const in vec2 uv, const in float scale, const in float speed, c
   return finalUv;
 }
 
-float foam(const in vec2 uv, const in float foamScale, const in float foamSpeed, const in float foamAmount, const in float foamCutoff, const in vec3 foamColor) {
+float foam(const in vec2 uv, const in float foamScale, const in float foamSpeed, const in float foamAmount, const in float foamCutoff) {
   float depth = depthFade(uv, foamAmount);
   float cutoff = depth * foamCutoff;
 
@@ -181,18 +184,16 @@ float foam(const in vec2 uv, const in float foamScale, const in float foamSpeed,
 void main() {
   vec2 screenUv = gl_FragCoord.xy / u_resolution.xy;
 
-  vec4 shallowColor = sRGBToLinear(vec4(u_shallowColor, u_shallowColorOpacity));
-  vec4 deepColor = sRGBToLinear(vec4(u_deepColor, u_deepColorOpacity));
-  vec4 foamColor = sRGBToLinear(vec4(u_foamColor, 1.0));
+  vec4 foamColor = vec4(u_foamColor, 1.0);
 
   float depth = depthFade(screenUv, u_depth);
-  vec4 waterColor = mix(deepColor, shallowColor, depth);
+  vec4 waterColor = mix(v_deepColor, v_shallowColor, depth);
 
-  float foamEdge = foam(screenUv, u_foamScale, u_foamSpeed, u_foamAmount, u_foamCutoff, foamColor.rgb);
+  float foamEdge = foam(screenUv, u_foamScale, u_foamSpeed, u_foamAmount, u_foamCutoff);
   vec4 foamWaterColor = mix(waterColor, foamColor, foamEdge);
 
   vec2 noiseUv = refractedUv(screenUv, u_refractionScale, u_refractionSpeed, u_refractionStrength);
-  vec4 sceneColor = sRGBToLinear(texture2D(u_sceneTexture, noiseUv));
+  vec4 sceneColor = mix(vec4(0.0), sRGBToLinear(texture2D(u_sceneTexture, noiseUv)), depth);
 
   vec3 finalColor = mix(sceneColor.rgb, foamWaterColor.rgb, foamWaterColor.a);
 

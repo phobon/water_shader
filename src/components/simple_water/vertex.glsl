@@ -8,8 +8,20 @@ uniform vec4 u_waveB;
 uniform vec4 u_waveC;
 uniform vec4 u_waveD;
 
+uniform vec3 u_shallowColor;
+uniform vec3 u_deepColor;
+uniform float u_shallowColorOpacity;
+uniform float u_deepColorOpacity;
+
 varying vec3 v_position;
 varying vec2 v_uv;
+
+varying vec4 v_shallowColor;
+varying vec4 v_deepColor;
+
+vec4 sRGBToLinear(in vec4 value) {
+	return vec4( mix( pow( value.rgb * 0.9478672986 + vec3( 0.0521327014 ), vec3( 2.4 ) ), value.rgb * 0.0773993808, vec3( lessThanEqual( value.rgb, vec3( 0.04045 ) ) ) ), value.a );
+}
 
 vec3 gerstnerWave (vec4 wave, vec3 p, float time) {
   float steepness = wave.z;
@@ -41,4 +53,7 @@ void main() {
   mvPosition.xyz = p;
 
   gl_Position = projectionMatrix * mvPosition;
+
+  v_shallowColor = sRGBToLinear(vec4(u_shallowColor, u_shallowColorOpacity));
+  v_deepColor = sRGBToLinear(vec4(u_deepColor, u_deepColorOpacity));
 }
