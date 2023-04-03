@@ -887,10 +887,10 @@
     utility-types "^3.10.0"
     zustand "^3.5.13"
 
-"@react-three/drei@^9.60.0":
-  version "9.60.0"
-  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-9.60.0.tgz#03fba1e12cac5e7a765b68322d59566fdfdb4e5f"
-  integrity sha512-58lQkMfp0l59HuwGaJtQB6Dpv/YTGIujRlx011pr6tX1jpssDgh6zUiiw6/xSt308pTTY8Tow02jG6EcR1NrVg==
+"@react-three/drei@^9.61.4":
+  version "9.61.4"
+  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-9.61.4.tgz#3da059b0be396b1b0a98a6ba33fc9779c24b11b1"
+  integrity sha512-Cs1VNbkrnNPKKUFp2u4U0Gszzksh1eVcfQOGwM39Gj+PmRSnl8Sh2GL+My1XuUV+ihETbw/D4TP5H3Xee3JPGg==
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@react-spring/three" "~9.6.1"
@@ -1011,10 +1011,10 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/react@^18.0.31":
-  version "18.0.31"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.31.tgz#a69ef8dd7bfa849734d258c793a8fe343a338205"
-  integrity sha512-EEG67of7DsvRDU6BLLI0p+k1GojDLz9+lZsnCpCRTa/lOokvyPBvp8S5x+A24hME3yyQuIipcP70KJ6H7Qupww==
+"@types/react@^18.0.32":
+  version "18.0.32"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.32.tgz#5e88b2af6833251d54ec7fe86d393224499f41d5"
+  integrity sha512-gYGXdtPQ9Cj0w2Fwqg5/ak6BcK3Z15YgjSqtyDizWUfx7mQ8drs0NBUzRRsAdoFVTO8kJ8L2TL8Skm7OFPnLUw==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -1030,10 +1030,10 @@
   resolved "https://registry.yarnpkg.com/@types/stats.js/-/stats.js-0.17.0.tgz#0ed81d48e03b590c24da85540c1d952077a9fe20"
   integrity sha512-9w+a7bR8PeB0dCT/HBULU2fMqf6BAzvKbxFboYhmDtDkKPiyXYbjoe2auwsXlEFI7CFNMF1dCv3dFH5Poy9R1w==
 
-"@types/three@^0.150.0":
-  version "0.150.0"
-  resolved "https://registry.yarnpkg.com/@types/three/-/three-0.150.0.tgz#efeeaac7c546aa4c7820cc37720569eeec25cb77"
-  integrity sha512-AGhnz/pfV9lajfPMrzRyP/nySpZYfpoXdayGk0Tiwkzc6hsWOCkz/Q696Muxn9HV2EkQJ3u8g/dDt7jcP5Tecg==
+"@types/three@^0.150.1":
+  version "0.150.1"
+  resolved "https://registry.yarnpkg.com/@types/three/-/three-0.150.1.tgz#32a594ac0d8452d37ad3abbb22a9496878ac6c77"
+  integrity sha512-ZXS1M3brsfAAbTeeUEt0defPi98yWQuEyPBnvjEYY1dCEYfJnFaww0mYgRpJ9JVfmtwRxqISpVcv/g/0lMl1DQ==
   dependencies:
     "@types/stats.js" "*"
     "@types/webxr" "*"

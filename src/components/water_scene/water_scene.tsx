@@ -27,7 +27,7 @@ export const WaterScene = () => {
       /> */}
       <SimpleWater rotation={[-Math.PI / 2, 0, 0]} args={[12, 12, 100, 100]} />
 
-      <OtherWater rotation={[-Math.PI / 2, 0, 0]} args={[12, 12, 100, 100]} />
+      {/* <OtherWater rotation={[-Math.PI / 2, 0, 0]} args={[12, 12, 100, 100]} /> */}
 
       <Sphere position={[1, 0, 1]} />
       <Sphere position={[-1, 0, 1]} height={2} />
