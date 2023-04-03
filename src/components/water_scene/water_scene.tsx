@@ -1,8 +1,8 @@
 import { OrthographicCamera, PerspectiveCamera } from '@react-three/drei'
-import { Water } from '../water'
-import { SimpleWater } from '../simple_water'
-import { StylisedWater } from '../stylised_water'
-import { OtherWater } from '../other_water'
+import { Water1 } from '../water1'
+import { Water4 } from '../water4'
+import { Water3 } from '../water3'
+import { Water2 } from '../water2'
 import { useFrame } from '@react-three/fiber'
 
 export const WaterScene = () => {
@@ -20,14 +20,15 @@ export const WaterScene = () => {
       <directionalLight position={[0, 5, 15]} intensity={0.8} />
       <ambientLight intensity={0.2} />
 
-      {/* <StylisedWater
+      {/* <Water1 rotation={[-Math.PI / 2, 0, 0]} args={[12, 12, 100, 100]} /> */}
+      {/* <Water2 rotation={[-Math.PI / 2, 0, 0]} args={[12, 12, 100, 100]} /> */}
+
+      {/* <Water3
         rotation={[-Math.PI / 2, 0, 0]}
         args={[12, 12, 100, 100]}
         bottomDepth={-2}
       /> */}
-      <SimpleWater rotation={[-Math.PI / 2, 0, 0]} args={[12, 12, 100, 100]} />
-
-      {/* <OtherWater rotation={[-Math.PI / 2, 0, 0]} args={[12, 12, 100, 100]} /> */}
+      <Water4 rotation={[-Math.PI / 2, 0, 0]} args={[12, 12, 100, 100]} />
 
       <Sphere position={[1, 0, 1]} />
       <Sphere position={[-1, 0, 1]} height={2} />

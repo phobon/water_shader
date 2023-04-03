@@ -25,7 +25,7 @@ const waves = {
   D: { direction: 90, steepness: 0.015, wavelength: 30 },
 }
 
-const WaterMaterial = shaderMaterial(
+const Water3Material = shaderMaterial(
   {
     u_sceneTexture: null,
     u_depthTexture: null,
@@ -73,9 +73,9 @@ const WaterMaterial = shaderMaterial(
   fragmentShader
 )
 
-extend({ WaterMaterial })
+extend({ Water3Material })
 
-export const StylisedWater = forwardRef<any, any>(
+export const Water3 = forwardRef<any, any>(
   ({ children, args, bottomDepth = 0, ...props }, ref) => {
     const meshRef = useRef<any>()
 
@@ -183,7 +183,7 @@ export const StylisedWater = forwardRef<any, any>(
       <mesh ref={meshRef} {...props}>
         <planeGeometry args={args} />
         {/* @ts-ignore */}
-        <waterMaterial side={THREE.DoubleSide} transparent />
+        <water3Material side={THREE.DoubleSide} transparent />
       </mesh>
     )
   }
