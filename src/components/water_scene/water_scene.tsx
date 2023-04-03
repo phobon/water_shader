@@ -1,7 +1,9 @@
 import { OrthographicCamera, PerspectiveCamera } from '@react-three/drei'
 import { Water } from '../water'
-import { StylisedWater } from '../stylised_water'
 import { SimpleWater } from '../simple_water'
+import { StylisedWater } from '../stylised_water'
+import { OtherWater } from '../other_water'
+import { useFrame } from '@react-three/fiber'
 
 export const WaterScene = () => {
   return (
@@ -24,6 +26,8 @@ export const WaterScene = () => {
         bottomDepth={-2}
       /> */}
       <SimpleWater rotation={[-Math.PI / 2, 0, 0]} args={[12, 12, 100, 100]} />
+
+      <OtherWater rotation={[-Math.PI / 2, 0, 0]} args={[12, 12, 100, 100]} />
 
       <Sphere position={[1, 0, 1]} />
       <Sphere position={[-1, 0, 1]} height={2} />
@@ -89,7 +93,7 @@ const WaterBottom = (props: any) => {
   return (
     <mesh {...props} rotation={[-Math.PI / 2, 0, 0]}>
       <planeGeometry args={[20, 20]} />
-      <meshStandardMaterial color="black" />
+      <meshStandardMaterial color="#fff" />
     </mesh>
   )
 }
